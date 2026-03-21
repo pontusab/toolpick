@@ -1,0 +1,62 @@
+{
+  "name": "toolpick",
+  "version": "0.1.0",
+  "description": "Dynamic tool selection for the Vercel AI SDK. Automatically picks the right tools per step.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pontusab/directories"
+  },
+  "keywords": [
+    "ai",
+    "ai-sdk",
+    "tools",
+    "tool-selection",
+    "activeTools",
+    "vercel",
+    "llm",
+    "agent"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./eval": {
+      "types": "./dist/eval/index.d.ts",
+      "import": "./dist/eval/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "bun test src/test"
+  },
+  "peerDependencies": {
+    "ai": ">=4.0",
+    "zod": ">=3.25 || >=4.0"
+  },
+  "peerDependenciesMeta": {
+    "ai": {
+      "optional": false
+    },
+    "zod": {
+      "optional": false
+    }
+  },
+  "devDependencies": {
+    "@ai-sdk/openai": "^3.0.47",
+    "@types/node": "^25.5.0",
+    "ai": "^6.0.134",
+    "typescript": "^5.9.3"
+  }
+}
