@@ -1,6 +1,6 @@
 import { tool, zodSchema } from "ai";
 import { z } from "zod";
-import type { SearchEngine, ToolDescription } from "../search/types";
+import type { SearchEngine, ToolDescription } from "../search/types.ts";
 
 const SEARCH_RESULTS = 5;
 

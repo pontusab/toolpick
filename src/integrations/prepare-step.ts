@@ -1,6 +1,6 @@
 import type { PrepareStepFunction } from "ai";
-import type { SearchEngine, SelectOptions } from "../search/types";
-import { extractQuery } from "../query-extractor";
+import type { SearchEngine, SelectOptions } from "../search/types.ts";
+import { extractQuery } from "../query-extractor.ts";
 
 /**
  * Creates a prepareStep function that dynamically selects tools per step.

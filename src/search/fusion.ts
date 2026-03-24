@@ -1,4 +1,4 @@
-import type { SearchResult } from "./types";
+import type { SearchResult } from "./types.ts";
 
 /**
  * Normalizes two scored result sets to [0,1] and fuses them

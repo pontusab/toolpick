@@ -1,7 +1,7 @@
 import { generateText, Output } from "ai";
 import type { LanguageModel } from "ai";
 import { z } from "zod";
-import type { SearchResult, ToolDescription } from "./search/types";
+import type { SearchResult, ToolDescription } from "./search/types.ts";
 
 const RERANK_TOOL_LIMIT = 50;
 

@@ -1,5 +1,5 @@
 import type { LanguageModelMiddleware } from "ai";
-import type { SearchEngine, SelectOptions } from "../search/types";
+import type { SearchEngine, SelectOptions } from "../search/types.ts";
 
 /**
  * Creates a LanguageModelMiddleware that filters tools via transformParams.

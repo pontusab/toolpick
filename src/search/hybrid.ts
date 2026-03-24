@@ -1,6 +1,6 @@
-import type { SearchEngine, SearchResult, ToolDescription } from "./types";
-import { tokenize } from "../utils";
-import { fuseResults } from "./fusion";
+import type { SearchEngine, SearchResult, ToolDescription } from "./types.ts";
+import { tokenize } from "../utils.ts";
+import { fuseResults } from "./fusion.ts";
 
 // ── BM25 ────────────────────────────────────────────────────────
 

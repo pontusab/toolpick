@@ -1,6 +1,6 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
-import type { EmbeddingCacheOptions } from "./search/types";
+import type { EmbeddingCacheOptions } from "./search/types.ts";
 
 /**
  * File-based embedding cache. Saves/loads tool embeddings as JSON

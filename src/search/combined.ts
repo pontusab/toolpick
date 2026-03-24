@@ -2,10 +2,10 @@ import type {
   EmbeddingCacheOptions,
   SearchEngine,
   ToolDescription,
-} from "./types";
-import { HybridSearch } from "./hybrid";
-import { SemanticSearch } from "./semantic";
-import { fuseResults } from "./fusion";
+} from "./types.ts";
+import { HybridSearch } from "./hybrid.ts";
+import { SemanticSearch } from "./semantic.ts";
+import { fuseResults } from "./fusion.ts";
 import type { EmbeddingModel } from "ai";
 
 const SEMANTIC_WEIGHT = 0.7;

@@ -5,14 +5,14 @@ import type {
   SelectOptions,
   ToolDescription,
   ToolIndexOptions,
-} from "./search/types";
-import { HybridSearch } from "./search/hybrid";
-import { SemanticSearch } from "./search/semantic";
-import { CombinedSearch } from "./search/combined";
-import { createPrepareStep } from "./integrations/prepare-step";
-import { createMiddleware } from "./integrations/middleware";
-import { createSearchTool } from "./integrations/search-tool";
-import { rerank, enrichDescriptions } from "./reranker";
+} from "./search/types.ts";
+import { HybridSearch } from "./search/hybrid.ts";
+import { SemanticSearch } from "./search/semantic.ts";
+import { CombinedSearch } from "./search/combined.ts";
+import { createPrepareStep } from "./integrations/prepare-step.ts";
+import { createMiddleware } from "./integrations/middleware.ts";
+import { createSearchTool } from "./integrations/search-tool.ts";
+import { rerank, enrichDescriptions } from "./reranker.ts";
 
 function extractParamNames(toolDef: unknown): string[] {
   if (!toolDef || typeof toolDef !== "object") return [];

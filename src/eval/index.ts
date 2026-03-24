@@ -1,5 +1,5 @@
-import type { ToolIndex } from "../tool-index";
-import type { EvalTestCase, EvalResult } from "../search/types";
+import type { ToolIndex } from "../tool-index.ts";
+import type { EvalTestCase, EvalResult } from "../search/types.ts";
 
 /**
  * Evaluates a ToolIndex against test cases.
@@ -71,4 +71,4 @@ export async function evalToolIndex(
   };
 }
 
-export type { EvalTestCase, EvalResult } from "../search/types";
+export type { EvalTestCase, EvalResult } from "../search/types.ts";

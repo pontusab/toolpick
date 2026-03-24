@@ -5,7 +5,7 @@ import type {
   SearchEngine,
   SearchResult,
   ToolDescription,
-} from "./types";
+} from "./types.ts";
 
 export class SemanticSearch implements SearchEngine {
   private embeddings: number[][] = [];
