@@ -1,6 +1,6 @@
 {
   "name": "toolpick",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Dynamic tool selection for the Vercel AI SDK. Automatically picks the right tools per step.",
   "type": "module",
   "license": "MIT",
