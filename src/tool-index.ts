@@ -1,4 +1,4 @@
-import type { ToolSet, LanguageModelMiddleware } from "ai";
+import type { LanguageModelMiddleware, PrepareStepFunction, ToolSet } from "ai";
 import type {
   SearchEngine,
   SearchResult,
@@ -42,7 +42,7 @@ function extractParamNames(toolDef: unknown): string[] {
   return [];
 }
 
-export interface ToolIndex {
+export interface ToolIndex<TOOLS extends ToolSet = ToolSet> {
   /** Pre-compute embeddings eagerly so the first select() is fast. */
   warmUp(): Promise<void>;
 
@@ -50,7 +50,7 @@ export interface ToolIndex {
   select(query: string, options?: SelectOptions): Promise<string[]>;
 
   /** Returns a prepareStep function for ToolLoopAgent / generateText / streamText. */
-  prepareStep(options?: SelectOptions): ReturnType<typeof createPrepareStep>;
+  prepareStep(options?: SelectOptions): PrepareStepFunction<TOOLS>;
 
   /** Returns a LanguageModelMiddleware for transparent integration via wrapLanguageModel. */
   middleware(options?: SelectOptions): LanguageModelMiddleware;
@@ -59,7 +59,7 @@ export interface ToolIndex {
   searchTool(): ReturnType<typeof createSearchTool>;
 
   /** The tool names in this index. */
-  readonly toolNames: string[];
+  readonly toolNames: (keyof TOOLS & string)[];
 }
 
 const GAP_RATIO = 0.4;
@@ -122,10 +122,10 @@ function buildToolDescription(name: string, toolDef: ToolSet[string]): string {
  * const activeTools = await index.select("ship it to prod", { maxTools: 5 });
  * ```
  */
-export function createToolIndex(
-  tools: ToolSet,
+export function createToolIndex<TOOLS extends ToolSet>(
+  tools: TOOLS,
   options: ToolIndexOptions = {},
-): ToolIndex {
+): ToolIndex<TOOLS> {
   const {
     embeddingModel,
     embeddingCache,
@@ -136,7 +136,7 @@ export function createToolIndex(
   const strategy = options.strategy
     ?? (embeddingModel ? "combined" : "hybrid");
 
-  const toolNames = Object.keys(tools);
+  const toolNames = Object.keys(tools) as (keyof TOOLS & string)[];
   const toolNameSet = new Set(toolNames);
 
   let descriptions: ToolDescription[] = toolNames.map((name) => ({
@@ -218,7 +218,7 @@ export function createToolIndex(
     },
 
     prepareStep(stepOptions?: SelectOptions) {
-      return createPrepareStep(engine, toolNames, stepOptions);
+      return createPrepareStep<TOOLS>(engine, toolNames, stepOptions);
     },
 
     middleware(mwOptions?: SelectOptions): LanguageModelMiddleware {

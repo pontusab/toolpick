@@ -1,6 +1,10 @@
-import type { PrepareStepFunction } from "ai";
+import type { PrepareStepFunction, ToolSet } from "ai";
 import type { SearchEngine, SelectOptions } from "../search/types";
 import { extractQuery } from "../query-extractor";
+
+function asActiveTools<TOOLS extends ToolSet>(names: string[]): Array<keyof TOOLS> {
+  return names as Array<keyof TOOLS>;
+}
 
 /**
  * Creates a prepareStep function that dynamically selects tools per step.
@@ -11,19 +15,21 @@ import { extractQuery } from "../query-extractor";
  * (positions maxTools+1 through maxTools*2) instead of repeating the same set.
  * After two consecutive misses, all tools are exposed.
  */
-export function createPrepareStep(
+export function createPrepareStep<TOOLS extends ToolSet>(
   engine: SearchEngine,
-  toolNames: string[],
+  toolNames: (keyof TOOLS & string)[],
   options: SelectOptions = {},
-): PrepareStepFunction {
+): PrepareStepFunction<TOOLS> {
   const { maxTools = 5, alwaysActive = [] } = options;
-  const toolNameSet = new Set(toolNames);
+  const toolNameSet = new Set<string>(toolNames);
 
   return async ({ messages, steps, stepNumber }) => {
-    const query = extractQuery(messages, steps, stepNumber);
+    const query = extractQuery<TOOLS>(messages, steps, stepNumber);
 
     if (!query) {
-      return alwaysActive.length > 0 ? { activeTools: alwaysActive } : undefined;
+      return alwaysActive.length > 0
+        ? { activeTools: asActiveTools<TOOLS>(alwaysActive) }
+        : undefined;
     }
 
     let consecutiveFailures = 0;
@@ -39,7 +45,7 @@ export function createPrepareStep(
 
     if (consecutiveFailures >= 2) {
       const activeTools = [...new Set([...toolNames, ...alwaysActive])];
-      return { activeTools };
+      return { activeTools: asActiveTools<TOOLS>(activeTools) };
     }
 
     const page = consecutiveFailures;
@@ -53,6 +59,6 @@ export function createPrepareStep(
     const merged = [...new Set([...selected, ...alwaysActive])];
     const activeTools = merged.filter((name) => toolNameSet.has(name));
 
-    return { activeTools };
+    return { activeTools: asActiveTools<TOOLS>(activeTools) };
   };
 }

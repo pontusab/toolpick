@@ -1,12 +1,16 @@
 {
   "name": "toolpick",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Dynamic tool selection for the Vercel AI SDK. Automatically picks the right tools per step.",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pontusab/directories"
+    "url": "https://github.com/pontusab/toolpick"
+  },
+  "homepage": "https://github.com/pontusab/toolpick#readme",
+  "bugs": {
+    "url": "https://github.com/pontusab/toolpick/issues"
   },
   "keywords": [
     "ai",
@@ -54,9 +58,9 @@
     }
   },
   "devDependencies": {
-    "@ai-sdk/openai": "^3.0.47",
+    "@ai-sdk/openai": "^3.0.49",
     "@types/node": "^25.5.0",
-    "ai": "^6.0.134",
-    "typescript": "^5.9.3"
+    "ai": "^6.0.141",
+    "typescript": "^6.0.2"
   }
 }
