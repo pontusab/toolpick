@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "target": "ES2022",
     "module": "preserve",
     "moduleResolution": "bundler",
@@ -10,7 +11,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "declaration": true,
-    "rewriteRelativeImportExtensions": true
+    "noEmit": true
   },
   "include": ["src"],
   "exclude": ["src/test"]
